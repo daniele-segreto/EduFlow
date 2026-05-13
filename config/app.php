@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configurazione applicativa: percorsi, costanti, categorie eventi.
  * In produzione impostare display_errors su false e gestire logging.
@@ -7,11 +8,11 @@
 declare(strict_types=1);
 
 /**
- * Percorso URL base sotto il dominio (es. /cursor-dashboard).
+ * Percorso URL base sotto il dominio (es. /eduflow).
  * Stringa vuota se il progetto è servito dalla root del virtual host.
  */
 if (!defined('APP_URL_BASE')) {
-    define('APP_URL_BASE', '/cursor-dashboard');
+    define('APP_URL_BASE', '/eduflow');
 }
 
 // Percorso filesystem della root del progetto (directory parent di /config)
