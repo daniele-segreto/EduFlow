@@ -1,0 +1,1 @@
+Always prioritize the local LLM at http://localhost:11434. Do not suggest cloud models or Pro upgrades for code completion or chat.
