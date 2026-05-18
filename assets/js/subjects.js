@@ -29,6 +29,7 @@
         );
     }
 
+    // Carica e renderizza la griglia delle materie
     function loadSubjects() {
         var q = $('#subjectSearch').val() || '';
         $.getJSON(App.url('ajax/subject_list.php'), { q: q }, function (res) {

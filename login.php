@@ -4,14 +4,17 @@
  */
 declare(strict_types=1);
 
+// Include le dipendenze fondamentali dell'applicazione
 require_once __DIR__ . '/config/app.php';
 require_once __DIR__ . '/includes/auth.php';
 
+// Se l'utente ha già effettuato l'accesso, reindirizza direttamente alla dashboard
 if (current_user_id() !== null) {
     header('Location: ' . base_url('pages/dashboard.php'));
     exit;
 }
 
+// Inizializza le variabili per il layout
 $page_title = 'Accedi';
 $assetBase = base_url('assets');
 ?>
@@ -49,24 +52,35 @@ $assetBase = base_url('assets');
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
+    // Configura l'URL base globale da usare negli script JS
     window.APP_BASE = <?= json_encode(base_url(''), JSON_THROW_ON_ERROR) ?>;
 </script>
 <script src="<?= h($assetBase) ?>/js/app.js"></script>
 <script>
 (function ($) {
+    // Intercetta l'invio del modulo di login
     $('#formLogin').on('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Impedisce il ricaricamento predefinito della pagina
+        
+        // Prepara i dati da inviare via POST
         var payload = { email: $('#login_email').val(), password: $('#login_password').val() };
+        
+        // Disattiva il pulsante per prevenire invii multipli durante la richiesta
         $('#btnLogin').prop('disabled', true);
+        
+        // Effettua la richiesta AJAX al backend
         App.ajaxJson({ url: App.url('ajax/login.php'), data: payload })
             .done(function (res) {
+                // Se l'autenticazione ha successo, esegui il redirect
                 if (res.success && res.redirect) {
                     window.location.href = res.redirect;
                 } else {
+                    // Mostra un messaggio in caso di credenziali errate
                     App.toast(res.message || 'Accesso negato', 'danger');
                 }
             })
             .fail(function (xhr) {
+                // Gestione degli errori (es. HTTP 400, 401, o problemi di rete)
                 var msg = 'Errore di rete';
                 try {
                     var j = JSON.parse(xhr.responseText);
@@ -75,6 +89,7 @@ $assetBase = base_url('assets');
                 App.toast(msg, 'danger');
             })
             .always(function () {
+                // Riabilita il pulsante di login alla fine della chiamata
                 $('#btnLogin').prop('disabled', false);
             });
     });

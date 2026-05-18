@@ -30,6 +30,7 @@
         });
     }
 
+    // Carica l'elenco delle lezioni in base ai filtri e aggiorna la tabella
     function loadLessons() {
         var params = {
             subject_id: $('#filterLessonSubject').val(),

@@ -8,11 +8,13 @@
 
     App.base = (typeof window.APP_BASE === 'string' ? window.APP_BASE : '').replace(/\/?$/, '/');
 
+    // Funzione per generare un URL completo a partire dal percorso fornito
     App.url = function (path) {
         path = String(path || '').replace(/^\//, '');
         return App.base + path;
     };
 
+    // Funzione per visualizzare un toast (notifica a comparsa) con un messaggio specifico
     App.toast = function (message, type) {
         type = type || 'info';
         var bg = 'text-bg-primary';
@@ -35,6 +37,7 @@
         });
     };
 
+    // Funzione per eseguire richieste AJAX utilizzando JSON
     App.ajaxJson = function (opts) {
         return $.ajax({
             url: opts.url,
@@ -45,6 +48,7 @@
         });
     };
 
+    // Aggiorna dinamicamente le opzioni del selettore delle materie
     App.refreshSubjectOptions = function () {
         var $sel = $('#lesson_subject_id');
         if (!$sel.length) {
@@ -69,6 +73,7 @@
         bootstrap.Modal.getOrCreateInstance(el).show();
     };
 
+    // Associa gli eventi di salvataggio ai vari modali dell'applicazione
     function wireModals() {
         $('#btnSaveEvent').on('click', function () {
             var id = parseInt($('#event_id').val(), 10) || 0;

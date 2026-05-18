@@ -13,6 +13,7 @@
         return '<span class="badge text-bg-' + c + '">' + (lbl[p] || p) + '</span>';
     }
 
+    // Carica la lista degli eventi in base ai filtri correnti
     function loadEvents() {
         var params = {
             show: $('#filterEventShow').val(),
@@ -52,6 +53,7 @@
         });
     }
 
+    // Apre il modale per modificare l'evento corrispondente all'ID fornito
     function openEdit(id) {
         $.getJSON(App.url('ajax/get_event.php?id=' + encodeURIComponent(id)), function (res) {
             if (!res.success || !res.event) {

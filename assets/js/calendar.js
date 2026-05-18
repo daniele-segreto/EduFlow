@@ -14,10 +14,12 @@
         return n < 10 ? '0' + n : '' + n;
     }
 
+    // Restituisce la data formattata come stringa ISO (AAAA-MM-GG)
     function isoDate(d) {
         return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
     }
 
+    // Calcola e restituisce il lunedì della settimana in cui cade la data fornita
     function startOfMonday(d) {
         var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
         var dow = (x.getDay() + 6) % 7;
@@ -31,6 +33,7 @@
         return x;
     }
 
+    // Recupera i metadati relativi al mese (es. primo e ultimo giorno, totale giorni)
     function monthMeta(year, month) {
         var first = new Date(year, month - 1, 1);
         var last = new Date(year, month, 0);
@@ -80,6 +83,7 @@
         });
     }
 
+    // Carica i dati del calendario dal server tramite richiesta AJAX
     function loadCalendar(cb) {
         var r = rangeForView();
         var qs = $.param({ start: isoDate(r.start), end: isoDate(r.end) });
@@ -115,6 +119,7 @@
         $('#calRangeHint').text('Intervallo caricato: ' + isoDate(r.start) + ' → ' + isoDate(r.end));
     }
 
+    // Genera l'HTML per la vista mensile del calendario
     function renderMonth() {
         var c = state.cursor;
         var y = c.getFullYear();

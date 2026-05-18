@@ -34,6 +34,7 @@
         return m[p] || p;
     }
 
+    // Genera i contenuti della dashboard utilizzando i dati caricati
     function renderDashboard(data) {
         if (!data.success) {
             App.toast(data.message || 'Errore caricamento', 'danger');
@@ -144,6 +145,7 @@
         $mc.append(row);
     }
 
+    // Effettua la richiesta per caricare i dati della dashboard
     function loadDash() {
         $.getJSON(App.url('ajax/dashboard_data.php'), renderDashboard);
     }
